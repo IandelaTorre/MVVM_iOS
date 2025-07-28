@@ -6,9 +6,12 @@
 //
 
 import UIKit
+import Combine
 
 class LoginView: UIViewController {
     private let loginViewModel = LoginViewModel(apiClient: APIClient())
+    
+    var cancellables = Set<AnyCancellable>()
     
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -16,6 +19,7 @@ class LoginView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        createBindingViewWithViewModel()
         
     }
 
@@ -25,6 +29,27 @@ class LoginView: UIViewController {
     
     private func login() {
         loginViewModel.userLogin(withEmail: emailTextField.text?.lowercased() ?? "", password: passwordTextField.text?.lowercased() ?? "")
+    }
+    
+    func createBindingViewWithViewModel() {
+        emailTextField.textPublisher
+            .assign(to: \LoginViewModel.email, on: loginViewModel)
+            .store(in: &cancellables)
+        
+        passwordTextField.textPublisher
+            .assign(to: \LoginViewModel.password, on: loginViewModel)
+            .store(in: &cancellables)
+        
+    }
+}
+
+extension UITextField {
+    var textPublisher: AnyPublisher<String, Never> {
+        return NotificationCenter.default.publisher(for: UITextField.textDidChangeNotification, object: self)
+            .map { notification in
+                return (notification.object as? UITextField)?.text ?? ""
+            }
+            .eraseToAnyPublisher()
     }
 }
 
