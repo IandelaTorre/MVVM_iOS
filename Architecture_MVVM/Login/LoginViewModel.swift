@@ -11,6 +11,7 @@ import Combine
 class LoginViewModel {
     @Published var email = ""
     @Published var password = ""
+    @Published var isEnabled = false
     
     var cancellables = Set<AnyCancellable>()
     let apiClient: APIClient
@@ -21,13 +22,14 @@ class LoginViewModel {
     }
     
     func formValidation() {
-        $email.sink { value in
-            print("Email: \(value)")
-        }.store(in: &cancellables)
-        
-        $password.sink { value in
-            print("Password: \(value)")
-        }.store(in: &cancellables)
+        Publishers.CombineLatest($email, $password)
+            .filter { email, password in
+                return email.count > 5 && password.count > 5
+            }
+            .sink { value in
+                self.isEnabled = true
+            }
+            .store(in: &cancellables)
     }
     
     @MainActor

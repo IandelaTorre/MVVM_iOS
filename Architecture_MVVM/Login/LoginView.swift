@@ -40,6 +40,10 @@ class LoginView: UIViewController {
             .assign(to: \LoginViewModel.password, on: loginViewModel)
             .store(in: &cancellables)
         
+        loginViewModel.$isEnabled
+            .assign(to: \.isEnabled, on: loginButton)
+            .store(in: &cancellables)
+        
     }
 }
 
