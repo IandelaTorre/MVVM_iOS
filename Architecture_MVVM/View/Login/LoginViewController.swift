@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-class LoginView: UIViewController {
+class LoginViewController: UIViewController {
     private let loginViewModel = LoginViewModel(apiClient: APIClient())
     
     var cancellables = Set<AnyCancellable>()
