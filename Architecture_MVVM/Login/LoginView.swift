@@ -16,6 +16,7 @@ class LoginView: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var errorLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +29,7 @@ class LoginView: UIViewController {
     }
     
     private func login() {
-        loginViewModel.userLogin(withEmail: emailTextField.text?.lowercased() ?? "", password: passwordTextField.text?.lowercased() ?? "")
+        loginViewModel.userLogin(withEmail: emailTextField.text?.lowercased() ?? "", password: passwordTextField.text ?? "")
     }
     
     func createBindingViewWithViewModel() {
@@ -44,6 +45,21 @@ class LoginView: UIViewController {
             .assign(to: \.isEnabled, on: loginButton)
             .store(in: &cancellables)
         
+        loginViewModel.$showLoading
+            .assign(to: \.configuration!.showsActivityIndicator, on: loginButton)
+            .store(in: &cancellables)
+        
+        loginViewModel.$errorMessage
+            .assign(to: \UILabel.text!, on: errorLabel)
+            .store(in: &cancellables)
+        
+        loginViewModel.$userModel
+            .receive(on: RunLoop.main)
+            .sink { [weak self] user in
+                guard user != nil else { return }
+                self?.performSegue(withIdentifier: "loginToHome", sender: nil)
+            }
+            .store(in: &cancellables)
     }
 }
 

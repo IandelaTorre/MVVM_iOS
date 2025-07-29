@@ -57,6 +57,12 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mNd-aB-v6b">
+                                <rect key="frame" x="8" y="556.66666666666663" width="377" height="30"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                <color key="textColor" systemColor="systemRedColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -69,24 +75,59 @@
                             <constraint firstItem="O36-g9-dnx" firstAttribute="top" secondItem="Im8-Rf-JNy" secondAttribute="bottom" constant="18" id="UM4-FN-jCC"/>
                             <constraint firstItem="m9l-Hn-gRs" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="UgD-pZ-S7b"/>
                             <constraint firstItem="E0x-dT-vnm" firstAttribute="top" secondItem="m9l-Hn-gRs" secondAttribute="bottom" constant="19" id="W5k-GD-cya"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="mNd-aB-v6b" secondAttribute="trailing" constant="8" id="au8-0a-Ytb"/>
                             <constraint firstItem="Im8-Rf-JNy" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="ci6-Yk-UOQ"/>
                             <constraint firstItem="O36-g9-dnx" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="cjk-Ki-hd7"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="m9l-Hn-gRs" secondAttribute="trailing" constant="8" id="csO-bS-Mom"/>
+                            <constraint firstItem="mNd-aB-v6b" firstAttribute="top" secondItem="V0e-iP-Ycr" secondAttribute="bottom" constant="44" id="dhL-fL-NxV"/>
                             <constraint firstItem="E0x-dT-vnm" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="hr9-2X-gte"/>
                             <constraint firstItem="m9l-Hn-gRs" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="57" id="mSg-V6-bhM"/>
+                            <constraint firstItem="mNd-aB-v6b" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="oNP-Jw-ZeS"/>
                             <constraint firstItem="Im8-Rf-JNy" firstAttribute="top" secondItem="E0x-dT-vnm" secondAttribute="bottom" constant="27" id="xBr-hA-pbd"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Iniciar sesion" id="HGp-qa-P9u"/>
                     <connections>
                         <outlet property="emailTextField" destination="E0x-dT-vnm" id="IuK-NW-Hf1"/>
+                        <outlet property="errorLabel" destination="mNd-aB-v6b" id="ySW-41-MsU"/>
                         <outlet property="loginButton" destination="V0e-iP-Ycr" id="axo-7L-SuF"/>
                         <outlet property="passwordTextField" destination="O36-g9-dnx" id="TO8-4Q-z9f"/>
+                        <segue destination="71p-Vh-9Kj" kind="show" identifier="loginToHome" id="ls3-cx-YTb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="991.60305343511448" y="-27.464788732394368"/>
+        </scene>
+        <!--Detalles-->
+        <scene sceneID="CVb-YS-yQg">
+            <objects>
+                <viewController id="71p-Vh-9Kj" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="iQ9-kH-8BG">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VISTA DE DETALLES CON MVVM Y NAVIGATION CONTROLLER " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NMB-wS-8C4">
+                                <rect key="frame" x="8" y="342.33333333333331" width="377" height="167.33333333333331"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="8Ae-gr-20C"/>
+                        <color key="backgroundColor" systemColor="systemGreenColor"/>
+                        <constraints>
+                            <constraint firstItem="NMB-wS-8C4" firstAttribute="leading" secondItem="8Ae-gr-20C" secondAttribute="leading" constant="8" id="ICp-hW-DCg"/>
+                            <constraint firstItem="NMB-wS-8C4" firstAttribute="centerY" secondItem="iQ9-kH-8BG" secondAttribute="centerY" id="kEf-JI-53E"/>
+                            <constraint firstItem="NMB-wS-8C4" firstAttribute="centerX" secondItem="iQ9-kH-8BG" secondAttribute="centerX" id="kQD-On-2Ee"/>
+                            <constraint firstItem="8Ae-gr-20C" firstAttribute="trailing" secondItem="NMB-wS-8C4" secondAttribute="trailing" constant="8" id="nF3-21-ssb"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Detalles" id="tAG-Ju-eJa"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yYs-LM-LXY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1885" y="-27"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="vgB-jW-H2p">
@@ -111,6 +152,12 @@
         <image name="play.circle.fill" catalog="system" width="128" height="123"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
