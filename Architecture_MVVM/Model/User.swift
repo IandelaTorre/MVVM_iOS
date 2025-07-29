@@ -12,3 +12,9 @@ struct User {
     let token: String
     let sessionStart: Date
 }
+
+struct Post: Decodable {
+    let user: String
+    let password: String
+    let time: Int
+}

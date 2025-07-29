@@ -1,13 +1,13 @@
 //
-//  HomeView.swift
+//  LogupViewController.swift
 //  Architecture_MVVM
 //
-//  Created by Ian Axel Perez de la Torre on 28/07/25.
+//  Created by Ian Axel Perez de la Torre on 29/07/25.
 //
 
 import UIKit
 
-class HomeView: UIViewController {
+class LogupViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
