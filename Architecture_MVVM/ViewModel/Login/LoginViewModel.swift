@@ -14,10 +14,7 @@ class LoginViewModel {
     @Published var isEnabled = false
     @Published var showLoading = false
     @Published var userModel: User?
-    @Published var user: Post?
     @Published var errorMessage: String?
-    var onSuccess: ((String) -> Void)?
-    var onError: ((String) -> Void)?
 
     private let apiService = ApiService()
     
@@ -28,42 +25,52 @@ class LoginViewModel {
         self.apiClient = apiClient
         formValidation()
     }
+    
+    func login(user: String, password: String, time: Int) {
+        DispatchQueue.main.async { self.showLoading = true }
 
-        func login(user: String, password: String, time: Int) {
-            showLoading = true
-            apiService.login(user: user, password: password, time: time) { [weak self] result in
-                switch result {
-                case .success(let message):
-                    self?.onSuccess?(message)
-                case .failure(let error):
-                    self?.onError?(error.localizedDescription)
+        apiService.login(user: user, password: password, time: time) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let (payload, tokenHeader)):
+                let token = tokenHeader ?? ""  // tu API no manda token en body
+                let appUser = User(name: payload.name, token: token, sessionStart: Date())
+                DispatchQueue.main.async {
+                    self.errorMessage = nil
+                    self.userModel = appUser      // ⬅️ dispara tu sink
+                    self.showLoading = false
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self.errorMessage = error.localizedDescription
+                    self.userModel = nil
+                    self.showLoading = false
                 }
             }
-            showLoading = false
         }
+    }
+
     
     func formValidation() {
         Publishers.CombineLatest($email, $password)
-            .filter { email, password in
-                return email.count > 5 && password.count > 5
-            }
-            .sink { value in
-                self.isEnabled = true
-            }
+            .map { $0.count > 5 && $1.count > 5 }
+            .removeDuplicates()
+            .receive(on: RunLoop.main)
+            .assign(to: \.isEnabled, on: self)
             .store(in: &cancellables)
     }
     
     @MainActor
-    func userLogin(withEmail email: String, password: String) {
-        errorMessage = ""
-        showLoading = true
-        Task {
+        func userLogin(withEmail email: String, password: String) async {
+            errorMessage = nil
+            showLoading = true
+            defer { showLoading = false }
             do {
                 userModel = try await apiClient.login(withEmail: email, password: password)
             } catch let error as BackendError {
                 errorMessage = error.rawValue
+            } catch {
+                errorMessage = error.localizedDescription
             }
-            showLoading = false
         }
-    }
 }

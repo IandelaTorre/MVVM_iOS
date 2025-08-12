@@ -20,8 +20,10 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if loginButton.configuration == nil {
+            loginButton.configuration = .filled()
+        }
         createBindingViewWithViewModel()
-        self.navigationController?.navigationItem.hidesBackButton = true
         
     }
 
@@ -53,26 +55,52 @@ class LoginViewController: UIViewController {
             .assign(to: \LoginViewModel.password, on: loginViewModel)
             .store(in: &cancellables)
         
-        loginViewModel.$isEnabled
-            .assign(to: \.isEnabled, on: loginButton)
-            .store(in: &cancellables)
-        
         loginViewModel.$showLoading
-            .assign(to: \.configuration!.showsActivityIndicator, on: loginButton)
+            .receive(on: RunLoop.main)
+            .sink { [weak self] loading in
+                guard let self = self, let button = self.loginButton else { return }
+                var config = button.configuration ?? .filled()
+                config.showsActivityIndicator = loading
+                button.configuration = config
+                button.isEnabled = loading ? false : self.loginViewModel.isEnabled
+            }
             .store(in: &cancellables)
         
-        /*loginViewModel.$errorMessage
-            .assign(to: \UILabel.text!, on: errorLabel)
-            .store(in: &cancellables)*/
+        loginViewModel.$isEnabled
+            .receive(on: RunLoop.main)
+            .sink { [weak self] enabled in
+                guard let self = self else { return }
+                self.loginButton.isEnabled = self.loginViewModel.showLoading ? false : enabled
+            }
+            .store(in: &cancellables)
         
         loginViewModel.$userModel
             .receive(on: RunLoop.main)
             .sink { [weak self] user in
                 guard user != nil else { return }
-                self?.performSegue(withIdentifier: "loginToHome", sender: nil)
+                print("Debería cambiar a tabBar")
+                self?.switchToMainTabBar()
             }
             .store(in: &cancellables)
     }
+    
+    private func switchToMainTabBar() {
+        let sb = UIStoryboard(name: "Main", bundle: nil)
+        let mainTabBar = sb.instantiateViewController(withIdentifier: "MainTabBar") as! UITabBarController
+
+        // (Opcional) seleccionar tab inicial
+        mainTabBar.selectedIndex = 0
+
+        guard
+            let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+            let sceneDelegate = scene.delegate as? SceneDelegate,
+            let window = sceneDelegate.window
+        else { return }
+
+        window.rootViewController = mainTabBar
+        UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve, animations: nil)
+    }
+
 }
 
 extension UITextField {
