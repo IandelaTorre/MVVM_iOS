@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-class LoginView: UIViewController {
+class LoginViewController: UIViewController {
     private let loginViewModel = LoginViewModel(apiClient: APIClient())
     
     var cancellables = Set<AnyCancellable>()
@@ -21,16 +21,28 @@ class LoginView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         createBindingViewWithViewModel()
+        self.navigationController?.navigationItem.hidesBackButton = true
         
     }
 
     @IBAction func loginButtonAction(_ sender: Any) {
-        login()
+        loginTapped()
     }
     
-    private func login() {
-        loginViewModel.userLogin(withEmail: emailTextField.text?.lowercased() ?? "", password: passwordTextField.text ?? "")
+    @IBAction func createAccountAction(_ sender: Any) {
     }
+    
+    @objc private func loginTapped() {
+            guard
+                let user = emailTextField.text,
+                let password = passwordTextField.text,
+                let time = Int("1")
+            else {
+                return
+            }
+            print("se hara petición")
+            loginViewModel.login(user: user, password: password, time: time)
+        }
     
     func createBindingViewWithViewModel() {
         emailTextField.textPublisher
@@ -49,9 +61,9 @@ class LoginView: UIViewController {
             .assign(to: \.configuration!.showsActivityIndicator, on: loginButton)
             .store(in: &cancellables)
         
-        loginViewModel.$errorMessage
+        /*loginViewModel.$errorMessage
             .assign(to: \UILabel.text!, on: errorLabel)
-            .store(in: &cancellables)
+            .store(in: &cancellables)*/
         
         loginViewModel.$userModel
             .receive(on: RunLoop.main)

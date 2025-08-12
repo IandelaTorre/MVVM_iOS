@@ -13,8 +13,13 @@ class LoginViewModel {
     @Published var password = ""
     @Published var isEnabled = false
     @Published var showLoading = false
-    @Published var errorMessage = ""
     @Published var userModel: User?
+    @Published var user: Post?
+    @Published var errorMessage: String?
+    var onSuccess: ((String) -> Void)?
+    var onError: ((String) -> Void)?
+
+    private let apiService = ApiService()
     
     var cancellables = Set<AnyCancellable>()
     let apiClient: APIClient
@@ -23,6 +28,19 @@ class LoginViewModel {
         self.apiClient = apiClient
         formValidation()
     }
+
+        func login(user: String, password: String, time: Int) {
+            showLoading = true
+            apiService.login(user: user, password: password, time: time) { [weak self] result in
+                switch result {
+                case .success(let message):
+                    self?.onSuccess?(message)
+                case .failure(let error):
+                    self?.onError?(error.localizedDescription)
+                }
+            }
+            showLoading = false
+        }
     
     func formValidation() {
         Publishers.CombineLatest($email, $password)
