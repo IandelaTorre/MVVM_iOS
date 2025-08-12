@@ -1,0 +1,3 @@
+# Ignorar estado local de Xcode
+*.xcuserstate
+xcuserdata/
