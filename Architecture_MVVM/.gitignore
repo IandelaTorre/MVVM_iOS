@@ -1,7 +1,21 @@
-# Xcode
-.DS_Store
+# ==========================
+# Xcode & macOS Git Ignore
+# ==========================
+
+## User-specific Xcode files
+**/xcuserdata/
+**/*.xcuserstate
+
+## Xcode workspace and scheme settings
+*.xcscmblueprint
+*.xccheckout
+
+## Build products
 build/
 DerivedData/
+
+## Index & source control
+*.moved-aside
 *.pbxuser
 !default.pbxuser
 *.mode1v3
@@ -10,8 +24,47 @@ DerivedData/
 !default.mode2v3
 *.perspectivev3
 !default.perspectivev3
-xcuserdata/
-*.xccheckout
-*.moved-aside
-*.xcuserstate
-*.xcscmblueprint
+
+## Swift Package Manager
+.swiftpm/
+.build/
+
+## CocoaPods
+Pods/
+Podfile.lock
+
+## Carthage
+Carthage/Build/
+
+## Accio dependency manager
+Dependencies/
+.accio/
+
+## Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output
+
+## Code coverage
+*.gcno
+*.gcda
+*.profdata
+
+## macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+## Archives
+*.xcarchive
+
+# ==========================
+# END
+# ==========================
