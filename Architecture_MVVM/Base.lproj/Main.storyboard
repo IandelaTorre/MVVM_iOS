@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" spacing="57" translatesAutoresizingMaskIntoConstraints="NO" id="h4z-5Y-PWa">
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="57" translatesAutoresizingMaskIntoConstraints="NO" id="h4z-5Y-PWa">
                                 <rect key="frame" x="15" y="187" width="363" height="34"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Nombres" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qaH-WO-PhQ">
@@ -144,7 +144,7 @@
                                 <buttonConfiguration key="configuration" style="plain" title="Crear cuenta"/>
                                 <connections>
                                     <action selector="createAccountAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="j8X-Dg-Xe7"/>
-                                    <segue destination="USl-wa-mGY" kind="show" id="xfO-jn-qWZ"/>
+                                    <segue destination="USl-wa-mGY" kind="show" id="LpX-Cw-p3W"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -173,7 +173,6 @@
                         <outlet property="errorLabel" destination="mNd-aB-v6b" id="ySW-41-MsU"/>
                         <outlet property="loginButton" destination="V0e-iP-Ycr" id="axo-7L-SuF"/>
                         <outlet property="passwordTextField" destination="O36-g9-dnx" id="TO8-4Q-z9f"/>
-                        <segue destination="71p-Vh-9Kj" kind="show" identifier="loginToHome" id="W64-Ag-5NZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -204,16 +203,17 @@
                             <constraint firstItem="8Ae-gr-20C" firstAttribute="trailing" secondItem="NMB-wS-8C4" secondAttribute="trailing" constant="8" id="nF3-21-ssb"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" systemItem="favorites" id="Yhg-JJ-94N"/>
                     <navigationItem key="navigationItem" title="Inicio" id="tAG-Ju-eJa"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yYs-LM-LXY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3048" y="-27"/>
+            <point key="canvasLocation" x="3973.2824427480914" y="-27.464788732394368"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="482-VC-gzQ">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7Eu-ha-arb" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="AuthNav" automaticallyAdjustsScrollViewInsets="NO" id="7Eu-ha-arb" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ReY-Yp-zlC">
                         <rect key="frame" x="0.0" y="118" width="393" height="44"/>
@@ -228,6 +228,23 @@
             </objects>
             <point key="canvasLocation" x="991.60305343511448" y="-27.464788732394368"/>
         </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="OIm-8X-0aH">
+            <objects>
+                <tabBarController storyboardIdentifier="MainTabBar" automaticallyAdjustsScrollViewInsets="NO" id="Pfb-cw-Ot0" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="IyM-md-T9A">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="71p-Vh-9Kj" kind="relationship" relationship="viewControllers" id="GM4-Tz-9a6"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Tra-1m-YVN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3046.5648854961833" y="-27.464788732394368"/>
+        </scene>
     </scenes>
     <resources>
         <image name="play.circle.fill" catalog="system" width="128" height="123"/>
@@ -235,10 +252,10 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGreenColor">
-            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
